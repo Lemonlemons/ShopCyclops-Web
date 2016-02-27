@@ -1,0 +1,1 @@
+Geokit::Geocoders::secure = false

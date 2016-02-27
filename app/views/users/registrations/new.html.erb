@@ -1,0 +1,40 @@
+<div class="container">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+      <%= link_to image_tag("resized_white_logo2.png", class:"navbar-brand"), streams_path %>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="col-md-5">
+
+      <div class="row">
+        <h1>Sign up</h1>
+      </div>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class="row"><%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, class:"chatstyle" %></div>
+
+        <div class="row"><%= f.label :displayname %><br />
+        <%= f.text_field :displayname, class:"chatstyle" %></div>
+
+        <div class="row"><%= f.label :password %> <% if @validatable %><i>(<%= @minimum_password_length %> characters minimum)</i><% end %><br />
+          <%= f.password_field :password, autocomplete: "off", class:"chatstyle" %></div>
+
+        <div class="row"><%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "off", class:"chatstyle" %></div>
+
+        <div class="row"><%= f.submit "Sign up", class:"btn btn-warning btn-lg" %></div>
+      <% end %>
+
+      <div class="row">
+        <%= render "users/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render "shared/filledfooter" %>

@@ -1,0 +1,105 @@
+<div class="header">
+  <% if current_user == nil %>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <%= link_to image_tag("resized_white_logo2.png", class:"navbar-brand"), streams_path %>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                  <li>
+                      <%= button_to "Sign up", new_user_registration_path, class: 'btn btn-default moveit', method:"get" %>
+                  </li>
+                  <li>
+                      <%= button_to "Log in", new_user_session_path, class: 'btn btn-warning moveitfarther', method:"get" %>
+                  </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        <!-- /.container -->
+    </nav>
+    <div class="locationbar" id="bs-example-navbar-collapse-1">
+      <form class="form-inline" role="form">
+        <span id="instructions">Search for Streams: </span>
+        <div class="form-group">
+          <label id="city_label">City:</label>
+          <input type="text" class="form-control" id="city">
+        </div>
+        <div class="form-group">
+          <label id="state_label">State:</label>
+          <input type="state" class="form-control" id="state">
+        </div>
+        <span id="spacer_Or">Or</span>
+        <div class="form-group">
+          <label id="zipcode_label">Zipcode:</label>
+          <input type="text" class="form-control" id="zipcode">
+        </div>
+        <button onclick="getAddressLocation()" class="btn btn-default btn-sm" id="search_button">Search</button>
+      </form>
+    </div>
+  <% else %>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <%= link_to image_tag("resized_white_logo2.png", class:"navbar-brand"), streams_path %>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+              <!-- <li>
+                <%= link_to "Messages", messages_path, class:"bigger" %>
+              </li> -->
+              <li>
+                <div class="dropdown">
+                  <a class="dropdown-toggle bigger" data-toggle="dropdown"><p>Options<span class="caret"></span></p></a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    <li role="presentation"><%= link_to 'Edit Profile',edit_user_registration_path, class:"options" %></li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation"><%= link_to "Sign out", destroy_user_session_path, method: :delete, class:"options" %></li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <a href="<%= streams_path %>" class="cart"><span class="fa-stack fa-2x">
+                  <i class="fa fa-square-o fa-stack-2x"></i>
+                  <i class="fa fa-shopping-cart fa-stack-1x"></i>
+                </span></a>
+              </li>
+          </ul>
+      </div>
+    </nav>
+    <div class="locationbar" id="bs-example-navbar-collapse-1">
+      <form class="form-inline" role="form">
+        <span id="instructions">Search for Streams: </span>
+        <div class="form-group">
+          <label id="city_label">City:</label>
+          <input type="text" class="form-control" id="city" value="<%= current_user.city %>">
+        </div>
+        <div class="form-group">
+          <label id="state_label">State:</label>
+          <input type="state" class="form-control" id="state" value="<%= current_user.state %>">
+        </div>
+        <span id="spacer_Or">Or</span>
+        <div class="form-group">
+          <label id="zipcode_label">Zipcode:</label>
+          <input type="text" class="form-control" id="zipcode" value="<%= current_user.zipcode %>">
+        </div>
+        <button onclick="getAddressLocation()" class="btn btn-default btn-sm" id="search_button">Search</button>
+      </form>
+    </div>
+  <% end %>
+</div>

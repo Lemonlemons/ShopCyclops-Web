@@ -1,0 +1,27 @@
+<%= render "shared/fillednavbar" %>
+
+<div id="content">
+  <% @streams.each do |stream| %>
+    <div class="col-md-3 col-sm-4 col-lg-3 hero-feature">
+      <%= link_to stream_path(stream) do %>
+        <div class="image">
+          <% if stream.thumbnail_url != nil %>
+            <img src="<%= stream.thumbnail_url %>" class="listitembox" alt="">
+          <% else %>
+            <img src="http://placehold.it/250x250" alt="">
+          <% end %>
+          <%= link_to stream_path(stream) do %>
+            <div class="stream_info">
+              <h4><%= link_to (stream.name), stream_path(stream) %></h4>
+              <p><%= stream.description %></br>
+              Store: <%= stream.store %></br>
+              Number of Watchers : <%= stream.number_of_watchers %></p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<%= render "shared/filledfooter" %>

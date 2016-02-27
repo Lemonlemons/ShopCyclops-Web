@@ -1,0 +1,70 @@
+<%= render "shared/fillednavbar" %>
+<div class="container">
+  <div class="content">
+
+    <h1><%= @stream.name %></h1>
+    <h3><%= @stream.description %></h3>
+    <h3><%= @stream.store %></h3>
+
+    <div id="message_container" class="box_shadow">
+
+      <ul id="messages"></ul>
+      <% if current_user == nil %>
+        <div id="input_message_container">
+          <%= form_for @message, html:{id:"form_send_message"}, remote: true do |f| %>
+
+            <div>
+              <%= f.text_field :contents, id: "input_message", placeholder:"Type your message here..." %>
+            </div>
+
+            <div>
+              <button id="btn_send" onclick="signupSuggestion()">Send</button>
+            </div>
+
+            <div class="clear"></div>
+          <% end %>
+        </div>
+      <% else %>
+        <div id="input_message_container">
+          <%= form_for @message, html:{id:"form_send_message"}, remote: true do |f| %>
+            <%= f.hidden_field :username, value: current_user.displayname %>
+            <%= f.hidden_field :stream_id, value: @stream.id %>
+
+            <div>
+              <%= f.text_field :contents, id: "input_message", placeholder:"Type your message here..." %>
+            </div>
+
+            <div>
+              <%= f.submit 'Send', id:"btn_send" %>
+            </div>
+
+            <div class="clear"></div>
+          <% end %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+
+  <%= render "shared/filledfooter" %>
+</div>
+
+<script>
+    var pusher = new Pusher('<%= Rails.application.secrets.pusher_key %>', { authEndpoint: '/auth' });
+    var channel = pusher.subscribe('private-chat-<%= @stream.id.to_s %>');
+
+    channel.bind('client-new_message', function (data) {
+      // Code smell - Duplicated view
+      // It's exactly app/views/chat_messages/_chat_message.html
+      $('#messages').append('<li><span class="name">' + data.username + '</span> ' + data.contents + '</li>');
+      $('#input_message').val('');
+    });
+
+    function signupSuggestion() {
+      var r = confirm("Join ShopCyclops to chat, would you like to signup now?");
+      if (r == true) {
+          window.location.href = "http://localhost:3000/users/sign_up";
+      } else {
+      }
+    }
+</script>

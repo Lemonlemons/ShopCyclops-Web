@@ -1,0 +1,160 @@
+<!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <%= link_to image_tag("resized_white_logo2.png", class:"navbar-brand"), streams_path %>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#sec2" class="fronter" data-toggle="collapse" data-target="#navbarCollapse"><p>Process</p></a>
+                    </li>
+                    <li>
+                        <a href="#sec3" class="fronter" data-toggle="collapse" data-target="#navbarCollapse"><p>Previews</p></a>
+                    </li>
+                    <li>
+                        <a href="#sec4" class="fronter" data-toggle="collapse" data-target="#navbarCollapse"><p>Contact</p></a>
+                    </li>
+                    <li>
+                        <%= button_to "Sign up", new_user_registration_path, class: 'btn btn-default moveit', method:"get" %>
+                    </li>
+                    <li>
+                        <%= button_to "Log in", new_user_session_path, class: 'btn btn-warning moveitfarther', method:"get" %>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Jumbotron Header -->
+      <div id="sec1">
+        <div class="row">
+          <div class="col-md-3 col-sm-12">
+          </div>
+          <div class="col-md-6 col-sm-12 hero-spacer">
+            <h1>Join ShopCyclops!</h1>
+            <div class="well well-sm">
+              <h2>Sign up below or take a look at some ShopCyclops streams happening near you right now!</h2>
+              <p><button type="button" class='btn btn-warning btn-lg' onclick="getAutomaticLocation()">Find Streams</button></p>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-12">
+          </div>
+        </div>
+      </div>
+
+        <hr>
+
+        <div id="sec2">
+          <!-- Title -->
+          <div class="row">
+              <div class="col-lg-12">
+                  <h1>The Process</h1>
+              </div>
+          </div>
+          <!-- /.row -->
+
+          <!-- Page Features -->
+          <div class="row text-center">
+              <div class="col-md-1 col-sm-3"><i class="fa fa-arrow-right fa-5x"></i></div>
+              <div class="col-md-3 col-sm-9 hero-feature">
+                <%= image_tag("http://placehold.it/300x300", width:'100%') %>
+                <div class="caption">
+                    <h2>Join Stream</h2>
+                </div>
+              </div>
+
+              <div class="col-md-1 col-sm-3"><i class="fa fa-arrow-right fa-5x"></i></div>
+              <div class="col-md-3 col-sm-9 hero-feature">
+                <%= image_tag("http://placehold.it/300x300", width:'100%') %>
+                <div class="caption">
+                    <h2>Make Purchases</h2>
+                </div>
+              </div>
+
+              <div class="col-md-1 col-sm-3"><i class="fa fa-arrow-right fa-5x"></i></div>
+              <div class="col-md-3 col-sm-9 hero-feature">
+                <%= image_tag("http://placehold.it/300x300", width:'100%') %>
+                <div class="caption">
+                    <h2>Pay and Deliver</h2>
+                </div>
+              </div>
+
+          </div>
+          <!-- /.row -->
+        </div>
+
+        <hr>
+
+        <div id="sec3">
+
+          <div class="row">
+              <div class="col-lg-12">
+                  <h1>Previews</h1>
+              </div>
+          </div>
+
+          <div class="row text-center">
+
+            <% @streams.each do |stream| %>
+              <div class="col-md-3 col-sm-6 hero-feature">
+                  <div class="thumbnail">
+                      <% if stream.thumbnail_url != nil %>
+                        <img src="<%= stream.thumbnail_url %>" alt="">
+                      <% else %>
+                        <img src="http://placehold.it/800x500" alt="">
+                      <% end %>
+                      <div class="caption">
+                          <h3>Name: <%= stream.name %></h3>
+                          <p><%= stream.description %></p>
+                          <p>Store: <%= stream.store %></p>
+                          <p>Number of Watchers : <%= stream.number_of_watchers %></p>
+                      </div>
+                  </div>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+
+        <hr>
+
+        <div id="sec4">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center">
+              <h2>Contact us with any questions or suggestions</h2>
+              <h3>Email: andrew@ShopCyclops.com</h3>
+              <h3>Address: 1120 16th St. N, Apt. 4</h3>
+              <h3>Fargo ND, 58102</h3>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                  <ul class="list-inline">
+                    <li><i class="icon-facebook icon-2x"></i></li>
+                    <li><i class="icon-twitter icon-2x"></i></li>
+                    <li><i class="icon-tumblr icon-2x"></i></li>
+                    <li><i class="icon-pinterest icon-2x"></i></li>
+                  </ul>
+                  <p>Copyright &copy; ShopCyclops.com 2015</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- /.container -->
